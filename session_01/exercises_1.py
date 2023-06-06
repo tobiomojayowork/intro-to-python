@@ -48,4 +48,26 @@ print(2+2);
 print(3.4-5.7);
 print(8*7);
 print(144/12);
-print(67 * 12);
+print(67 % 12);
+print((4-2)*(6/3)*5)
+
+
+myName = "Seun"
+myAge = -1 # :D :( cannot concatenate None value!
+myHeight = 1.69 
+isIn = True # cannot concatenate boolean values!
+
+myName = myName + " Tobi" # has now changed!
+
+my_favourite_food = "greek salad with tuna"
+
+
+print("my name is " + myName)
+
+##print("I am " + myAge + " (...not telling you!!!)")
+
+print("my favourite food is \"" + my_favourite_food + "\"")
+
+##print("am I in? " + isIn)
+
+print(4+5*2)
