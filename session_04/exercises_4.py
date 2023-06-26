@@ -11,6 +11,7 @@ print("\n\nA2: insert and append!")
 my_fruit.insert(5, "Prunes")
 my_fruit.append("Grapes")
 print(my_fruit)
+print(my_fruit[-1])
 
 # 3. Change "Pears" to "Strawberries" and print the list.
 print("\n\nA3:")
@@ -49,8 +50,12 @@ for fruit in my_fruit:
 
 
 # 2. Print the numbers 1 to 100 (including the number 100).
-print("\n\nB2:")
+print("\n\nB2.1:")
 for n in range(1, 101):
+  print(n)
+
+print("\n\nB2.2:")
+for n in range(101):
   print(n)
 
 
