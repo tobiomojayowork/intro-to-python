@@ -1,5 +1,5 @@
 # Session 3 Exercises
-
+''''
 ## Section A
 # 1. Ask for the user's name, if they are called "Bob", print "Welcome Bob!".
 print("A1:")
@@ -144,16 +144,53 @@ else:
 
 
 # 4. Ask the user for two different numbers, if both numbers are even, print "Even", if both numbers are odd, print "Odd", else print the product of the two numbers.
+print("\n\nB4: 2 nuymbrs pls...which is even?")
+num1 = int(input("Give me a number: "))
+num2 = int(input("Give me another number: "))
+
+if num1 % 2 == 0 and num2 % 2 == 0:
+  print("both " + str(num1) + " and " + str(num2) + " are even")
+else:
+  print("one is NOT EVEN.\n so... " + str(num1*num2))
 
 
 
 # 5. Ask the user to input two numbers. Decide which is the number of highest value and print this out.
+print("\n\nB5: 2 nuymbrs pls...which is bigger")
+num1 = int(input("Give me a number: "))
+num2 = int(input("Give me another number: "))
+
+if(num1 > num2):
+  print(str(num1) + " is bigger!")
+
+if(num2 > num1):
+  print(str(num2) + " is bigger!")
 
 
-
-# 6. You have had a fantastic year and are now going to offer a bonus of 20% to any employee who has a service of over 7 years, 
-#   a bonus of 15% to any employee who has a service of over 5 years and a bonus of 10% to any employee who has a service of 3 - 5 years. 
+# 6. You have had a fantastic year and are now going to offer 
+# a bonus of 20% to any employee who has a service of over 7 years, 
+# a bonus of 15% to any employee who has a service of over 5 years and 
+# a bonus of 10% to any employee who has a service of 3 - 5 years. 
 #    Ask the user to input their current salary and years of service and print out their salary and their bonus or "No bonus" if they are not receiving one.
+print("\n\nB6: fantastic year bonuses!")
+sal = float(input("What's your salary (to the nearest penny)? "))
+numyrs = int(input("How many years of servicehave you done? "))
+
+if numyrs < 3:
+  print("Sorry, you only have a service of " + str(numyrs) + " so you get no bonus!")
+elif numyrs >= 3 and numyrs <= 5:
+  print("Congratulations! you have a service of " 
+        + str(numyrs) + " so you get £" + str(sal*0.1) 
+        + " with your £" + str(sal) + " salary!")
+elif numyrs > 5 and numyrs <= 7:
+  print("Congratulations! you have a service of " 
+        + str(numyrs) + " so you get £" + str(sal*0.15) 
+        + " with your £" + str(sal) + " salary!")
+elif numyrs > 7:
+  print("Congratulations! you have a service of " 
+        + str(numyrs) + " so you get £" + str(sal*0.2) 
+        + " with your £" + str(sal) + " salary!")
+
 
 
 
@@ -161,7 +198,7 @@ else:
 #   If all three ages are the same, print that.
 
 
-
+'''
 # 8. A school has following rules for their grading system:
 #     a.	Above 80 – A
 #     b.	60 to 80 – B
@@ -170,3 +207,25 @@ else:
 #     e.	25 to 45 – E
 #     f.	Below 25 - F
 #   Ask user to enter the lesson and the marks for three lessons and print out the corresponding grades for the lesson.
+print("\n\nB8: school grades")
+lss1 = input("enter the 1st lesson: ")
+mrk1 = int(input("enter your marks for " + lss1.upper() + " lesson: "))
+
+lss2 = input("enter the 2nd lesson: ")
+mrk2 = int(input("enter your marks for " + lss2.upper() + " lesson: "))
+
+lss3 = input("enter the 3rd lesson: ")
+mrk3 = int(input("enter your marks for " + lss3.upper() + " lesson: "))
+
+
+
+
+
+
+
+
+
+
+
+
+
