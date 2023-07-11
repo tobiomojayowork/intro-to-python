@@ -2,29 +2,44 @@
 
 ## Section A
 # 1. Create the following dictionary for an apple: Type = "Bramley", Price = 0.39, Colour = "Green".
-
-
+print("\n\nA1: dictionary")
+d = {"Type": "Bramley", "Price": 0.39, "Colour": "Green"}
+print(d)
 
 # 2. Add the best before date to the dictionary - print the dictionary.
+print("\n\nA2: dictionary with bbd")
+import datetime 
+bbd = datetime.date.today().isoformat()
 
+d["BestBeforeDate"] = bbd
+
+print(d)
 
 
 # 3. Change the price to 0.41 - print the dictionary.
-
+print("\n\nA3: dictionary: change price")
+d["Price"] = 0.41
+print(d)
 
 
 # 4. Set the apple to be on offer using a Boolean - print the dictionary.
-
+print("\n\nA1: dictionary with apple on offer")
+d["OnOffer"] = True
+print(d)
 
 
 # 5. The offer has now expired, remove the key/value from the dictionary - print the dictionary.
-
+print("\n\nA1: dictionary - remove offer")
+del(d["OnOffer"])
+print(d)
 
 # <---------------------------------------------------------------------------------------------->
 
 ## Section B
 # 1. Ask the user to enter a persons name, if they enter a name, ask for the persons age. Store this information in a dictionary inside a list. 
 #   Continue to ask for names until no name is given. Then print out all of the names and ages collected.
+
+
 
 
 
