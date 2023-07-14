@@ -4,14 +4,14 @@ mytowns = {
   "Ijebu",
   "Akure",
   "Ikeja",
-  "Ilorin"
+  "Ilorin", 
+  "Lagos"
 }
 print(mytowns)
 
-print("\n\Set: cannot be sorted...")
+print("\nSet: cannot be sorted...")
 
-
-print("\n\Set: can be changed: by adding and removing only apparently")
+print("\nSet: can be changed: by adding and removing only apparently")
 
 mytowns.remove("Ikeja")
 
@@ -29,3 +29,8 @@ mytowns.pop()
 
 print(mytowns)
 
+
+print("\n\nSets: can be iterated at least!...")
+for item in mytowns:
+  print(item)
+  

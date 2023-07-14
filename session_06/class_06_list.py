@@ -25,3 +25,8 @@ print("\n\nList: Duplicates allowed...")
 mytowns.append("Lagos")
 
 print(mytowns)
+
+print("\n\n Lists: can be iterated at least!...")
+for item in mytowns:
+  print(item)
+  
