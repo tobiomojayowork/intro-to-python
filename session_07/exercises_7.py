@@ -161,10 +161,49 @@ print(multiple_sum(30))
 #print(multiple_sum(40))
 
 # 6. Write a function called is_prime() that accepts a number and return True or False if the number of prime or not.
+def is_prime(number):
+    for n in range(2, number):
+        if number % n == 0:
+            return False
+    
+    return True
 
 
+def print_is_prime(number):
+    print("Is " + str(number) + " a prime number? " + str(is_prime(number)).upper())
+    
+print_is_prime(44)
+print_is_prime(2)
+print_is_prime(1)
+print_is_prime(7)
+print_is_prime(8)
+print_is_prime(9)
+print_is_prime(11)
+print_is_prime(13)
+print_is_prime(55)
 
 # 7. Write a function that checks to see if a string is a pallindrome, if it is, it will return True and False if it is not.
+def is_pallindr(string):
+    string = string.replace(" ", "").replace(".", "").replace(",", "").replace("?", "").replace("!", "").replace("’", "").lower()
+
+    reverse_string = ""
+    for l in reversed(string): 
+        reverse_string += l
+
+    return (string == reverse_string)
+
+print(is_pallindr("this is a sentence "))
+print(is_pallindr("Red roses run no risk, sir, on Nurse’s order"))
+print(is_pallindr("Now, sir, a war is won!"))
+print(is_pallindr("UFO tofu"))
+print(is_pallindr("Step on no pets!"))
+print(is_pallindr("Yo, Banana Boy!"))
+print(is_pallindr("rotator"))
+print(is_pallindr("Dennis and Edna sinned."))
+print(is_pallindr("Borrow or rob?"))
+print(is_pallindr("mallam"))
+
+# https://www.dictionary.com/e/palindromic-word/
 
 
 
