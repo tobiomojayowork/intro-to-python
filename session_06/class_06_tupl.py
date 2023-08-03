@@ -21,3 +21,4 @@ for item in mytowns:
   
 
 print(mytowns)
+print(mytowns[2])

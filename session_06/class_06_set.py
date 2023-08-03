@@ -10,6 +10,7 @@ mytowns = {
 print(mytowns)
 
 print("\nSet: cannot be sorted...")
+print("\nSet: DOES NOT SUPPORT INDEXING!!!")
 
 print("\nSet: can be changed: by adding and removing only apparently")
 
