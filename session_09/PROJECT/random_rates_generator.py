@@ -1,6 +1,14 @@
 
 import datetime, random
 
+# OUTPUT GENERATOR
+# Output List 
+#----------------------------------------------------------------
+outputRates = {
+    "constant": [],
+    "client": []
+}
+
 
 # Rate types
 #----------------------------------------------------------------
@@ -49,9 +57,9 @@ def SetRandomDateConfig():
 
     randomOption = random.randint(0, 400)
 
-    if randomOption > 100: year = random.randint(2017, datetime.datetime.now().year)
+    if randomOption > 300: year = random.randint(2017, datetime.datetime.now().year)
     if randomOption > 200: startMonth = random.randint(1, 12)
-    if randomOption > 300: startDay = GetRandomDay(startMonth, year)
+    if randomOption > 100: startDay = GetRandomDay(startMonth, year)
     maxDayInterval = randomOption
 
     cfg = { 
@@ -102,6 +110,24 @@ def GetRateGroup(avoidDefault=None):
 
 # RANDOM Currency Rate creators
 #----------------------------------------------------------------
+def RatePairExists(sourceKey, currFrom, currTo, rateType):
+    exists = (("CurrFrom",currFrom) in outputRates[sourceKey].items()) and (("CurrTo",currTo) in outputRates[sourceKey].items()) and (("RateType",rateType) in outputRates[sourceKey].items())
+    return exists
+    CONTINUE HERE!!!
+    
+
+def GetCurrencyPair():
+    currFrom = random.choice(currencies)
+    currTo = random.choice(currencies) 
+    # could make the rates plausible based on the currency pair
+    # for now, make it completely random rates
+    rate = float("{:.4f}".format(random.random() * random.randint(1, 100)))
+
+    while currFrom == currTo:
+        currTo = random.choice(currencies) 
+    
+    return [currFrom, currTo, rate]
+
 def CreateRate(rateFields):
     currFrom, currTo, dateStart, dateEnd, rateType, rate, rateGroup = rateFields
 
@@ -134,6 +160,9 @@ def CreateDayRate(currFrom, currTo, rate):
 def CreateProfitAndLossRate(currFrom, currTo, rate):
     date_start, date_end = CreateDateRange()
 
+    # only add rate pair if it does not already exist - at least in our output
+    # because of contiguous date error
+
     return CreateRate([
         currFrom,
         currTo,
@@ -148,6 +177,8 @@ def CreateConstantRate(currFrom, currTo, rate):
     # date NOT REQUIRED for constant rates
     # must output on separate sheet
 
+    # only add rate pair if it does not already exist - at least in our output
+
     return CreateRate([
         currFrom,
         currTo,
@@ -158,26 +189,6 @@ def CreateConstantRate(currFrom, currTo, rate):
         GetRateGroup()
     ])
 
-
-# OUTPUT GENERATOR 
-#----------------------------------------------------------------
-outputRates = {
-    "constant": [],
-    "client": []
-}
-
-def GetCurrencyPair():
-    currFrom = random.choice(currencies)
-    currTo = random.choice(currencies) 
-    # could make the rates plausible based on the currency pair
-    # for now, make it completely random rates
-    rate = random.random() * random.randint(1, 100)  
-
-    while currFrom == currTo:
-        currTo = random.choice(currencies) 
-    
-    return [currFrom, currTo, rate]
-    
 
 
 #Set Year Month Date parameters for random dates generation

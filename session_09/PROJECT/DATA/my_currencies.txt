@@ -13,4 +13,3 @@ JPY
 HNL
 ZAR
 MAD
-NGN
