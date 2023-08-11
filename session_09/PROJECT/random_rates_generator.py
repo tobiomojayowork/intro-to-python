@@ -1,5 +1,18 @@
 
-import datetime, random
+import datetime, random, os
+
+# FILE AND DIRECTORY PATHS
+#----------------------------------------------------------------
+DATAFOLDER = "DATA"
+OUTPUTFOLDER = os.path.join(DATAFOLDER, "OUTPUT")
+
+#RATETYPEFILEPATH = "rate_types.txt"
+RATEGROUPFILEPATH = os.path.join(DATAFOLDER, "rate_groups.txt")
+CURRENCYFILEPATH = os.path.join(DATAFOLDER, "my_currencies.txt")
+
+OUTPUTCLIENRATESTFILEPATH = os.path.join(OUTPUTFOLDER, "random_client_rates.csv")
+OUTPUTCONSTANTRATESFILEPATH = os.path.join(OUTPUTFOLDER, "random_const_rates.csv")
+
 
 # OUTPUT GENERATOR
 # Output List 
@@ -15,35 +28,42 @@ outputRates = {
 rate_types = ("Constant", "Day", "BalanceSheet", "ProfitAndLoss")
 
 
-# Rate groups [TODO #1]
+# Rate groups [USER CHECK/PROMPT #1]
 #----------------------------------------------------------------
-rate_groups = []
+def LoadRateGroups():
+    global rate_groups
+    
+    rate_groups = []
 
-frategroups = open("DATA/rate_groups.txt")
+    f = open(RATEGROUPFILEPATH)
 
-for group in frategroups:
-    rate_groups.append(group.rstrip("\n"))
+    for group in f:
+        rate_groups.append(group.rstrip("\n"))
 
-frategroups.close()
+    f.close()
 
-rate_groups = tuple(rate_groups)
+    rate_groups = tuple(rate_groups)
 
-#print(rate_groups)
+    #print(rate_groups)
 
 
-# CURRENCIES  [TODO #2]
+# CURRENCIES  [USER CHECK/PROMPT #2]
 # ensure currencies specified here matches what is in the database
 #----------------------------------------------------------------
-currencies = []
 
-fcurr = open("DATA/my_currencies.txt")
+def LoadCurrencies():
+    global currencies
 
-for curr in fcurr:
-    currencies.append(curr.rstrip("\n"))
+    currencies = []
 
-fcurr.close()
+    f = open(CURRENCYFILEPATH)
 
-#print(currencies)
+    for curr in f:
+        currencies.append(curr.rstrip("\n"))
+
+    f.close()
+
+    #print(currencies)
 
 
 # Random Date generation
@@ -110,12 +130,6 @@ def GetRateGroup(avoidDefault=None):
 
 # RANDOM Currency Rate creators
 #----------------------------------------------------------------
-def RatePairExists(sourceKey, currFrom, currTo, rateType):
-    exists = (("CurrFrom",currFrom) in outputRates[sourceKey].items()) and (("CurrTo",currTo) in outputRates[sourceKey].items()) and (("RateType",rateType) in outputRates[sourceKey].items())
-    return exists
-    CONTINUE HERE!!!
-    
-
 def GetCurrencyPair():
     currFrom = random.choice(currencies)
     currTo = random.choice(currencies) 
@@ -127,6 +141,8 @@ def GetCurrencyPair():
         currTo = random.choice(currencies) 
     
     return [currFrom, currTo, rate]
+
+
 
 def CreateRate(rateFields):
     currFrom, currTo, dateStart, dateEnd, rateType, rate, rateGroup = rateFields
@@ -189,6 +205,25 @@ def CreateConstantRate(currFrom, currTo, rate):
         GetRateGroup()
     ])
 
+# Validators
+#----------------------------------------------------------------
+def RatePairExists(sourceKey, rateToFind):
+    for rate in outputRates[sourceKey]:
+        if rateToFind["CurrFrom"]==rate["CurrFrom"] and rateToFind["CurrTo"]==rate["CurrTo"] and rateToFind["RateType"]==rate["RateType"]:
+            return True
+    
+    return False
+
+# PROGRAM START 
+#----------------------------------------------------------------
+#----------------------------------------------------------------
+
+
+LoadCurrencies()
+LoadRateGroups()
+
+
+
 
 
 #Set Year Month Date parameters for random dates generation
@@ -204,14 +239,39 @@ while rateCount != 0:
 
     actionIndex = random.randint(1,4)
 
-    if actionIndex == 1: outputRates["client"].append(CreateDayRate(currFrom, currTo, rate))
-    if actionIndex == 2: outputRates["client"].append(CreateProfitAndLossRate(currFrom, currTo, rate))
-    if actionIndex == 3: outputRates["constant"].append(CreateConstantRate(currFrom, currTo, rate))
+    newrate = None
+
+    if actionIndex == 2: 
+        newrate = CreateProfitAndLossRate(currFrom, currTo, rate)
+
+        if not RatePairExists("client", newrate):
+            outputRates["client"].append(newrate)
+        else: 
+            print(f'rate {newrate["CurrFrom"]} - {newrate["CurrTo"]} ({newrate["RateType"]}) already exists, will not be added')
+            actionIndex = 3
+
+    if actionIndex == 3: 
+        newrate = CreateConstantRate(currFrom, currTo, rate)
+
+        if not RatePairExists("constant", newrate):
+            outputRates["constant"].append(newrate)
+        else: 
+            print(f'rate {newrate["CurrFrom"]} - {newrate["CurrTo"]} ({newrate["RateType"]}) already exists, will not be added')
+            actionIndex = 1
+
+    if actionIndex == 1: 
+        newrate = CreateDayRate(currFrom, currTo, rate)
+        outputRates["client"].append(newrate)
+
     if actionIndex == 4: SetRandomDateConfig()
 
     if actionIndex != 4: rateCount-=1
 
-fclient = open("DATA/OUTPUT/random_client_rates.csv", "w" )
+
+
+
+# OUTPUT FILES:
+fclient = open(OUTPUTCLIENRATESTFILEPATH, "w" )
 
 fclient.write("CurrFrom,CurrTo,StartDate,EndDate,RateType,Rate,RateGroup")
 for rate in outputRates["client"]:
@@ -219,7 +279,7 @@ for rate in outputRates["client"]:
 
 fclient.close()
 
-fconst = open("DATA/OUTPUT/random_const_rates.csv", "w")
+fconst = open(OUTPUTCONSTANTRATESFILEPATH, "w")
 fconst.write("CurrFrom,CurrTo,RateType,Rate,RateGroup")
 for rate in outputRates["constant"]:
     fconst.write(f'\n{rate["CurrFrom"]},{rate["CurrTo"]},{rate["RateType"]},{float(rate["Rate"])},{rate["RateGroup"]}')
@@ -228,4 +288,9 @@ fconst.close()
 
 
 
+# PROGRAM END  
+#----------------------------------------------------------------
+#----------------------------------------------------------------
 
+
+TEST OUTPUT IN CURRENCYAPP
